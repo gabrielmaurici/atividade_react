@@ -3,13 +3,18 @@ import './App.css';
 import CervejasForm from './Components/cervejas_form/CervejasForm';
 import CervejasList from './Components/cervejas_list/CervejasList';
 import TipoForm from './Components/tipo_form/TipoForm';
+import TiposList from './Components/tipos_list/TiposList';
 
 class App extends Component {
+  
   list = [];
+  listTipo = [];
+
   constructor (){
     super()
     this.state = {
-      list: this.list
+      list: this.list,
+      listTipo: this.listTipo
     }
   }
 
@@ -18,6 +23,14 @@ class App extends Component {
     this.setState({
       list: this.list
     })
+  }
+
+  createTipo (model){
+    this.listTipo.push(model)
+    this.setState({
+      listTipo: this.listTipo
+    })
+    console.log(this.listTipo)
   }
 
   delete (id){
@@ -31,9 +44,10 @@ class App extends Component {
   render (){
     return (
       <section>
-        <CervejasForm create = {this.create.bind(this)} />
-        <CervejasList list = {this.state.list} delete = {this.delete.bind(this)}/>
-        <TipoForm />
+        <CervejasForm create = {this.create.bind(this)} listTipo = {this.state.listTipo} />
+        <CervejasList listTipo = {this.state.listTipo} list = {this.state.list} delete = {this.delete.bind(this)}/>
+        <TipoForm createTipo = {this.createTipo.bind(this)} />
+        <TiposList listTipo = {this.state.listTipo} />
       </section>
     );
   }
