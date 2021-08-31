@@ -2,6 +2,10 @@ import { Component } from "react";
 
 class CervejasForm extends Component {
 
+    constructor (props){
+        super(props)
+        this.lista_Tipos = props.listTipo;
+    }
     id;
     nome;
     tipo;
@@ -14,8 +18,9 @@ class CervejasForm extends Component {
         this.nome = event.target.value;
         event.stopPropagation();
     }
-    handlerInputTipo(event) {
+    handlerSelectTipo(event) {
         this.tipo = event.target.value;
+        console.log(this.tipo)
         event.stopPropagation();
     }
     handlerSubmitSalvar (event){
@@ -46,17 +51,22 @@ class CervejasForm extends Component {
                         onChange= {this.handlerInputNome.bind(this)}
                     />   <br /><br />
                     <label>Tipo: </label>
-                    <input 
-                        type="text" 
-                        id="tipo" 
+                    <select 
+                        onClickCapture = {this.handlerSelectTipo.bind(this)}
                         name="tipo" 
-                        placeholder="Digite o Tipo de sua Cerveja"
-                        onChange= {this.handlerInputTipo.bind(this)} 
-                    />    <br /><br />          
+                        id="tipo"
+                    >
+                        <option disabled>Selecione um Tipo</option>
+                        {this.lista_Tipos.map((c, i) =>
+                            <option key= {i} value= {c} >{c}</option>
+                            
+                        )}
+                    </select>
+                    <br /><br />
+
                     <input 
                         type="submit" 
                         value="Enviar"
-
                     />
                 </form>    
             </section>
